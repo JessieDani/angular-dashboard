@@ -1,0 +1,135 @@
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap:wrap;
+
+  }
+  
+  ul li {
+    padding: 10px 20px 10px;
+    margin-bottom: 5px;
+    
+  }
+  .user-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+  
+  .user-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .user-details {
+    flex: 1;
+  }
+  .user-details h3 {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+  
+  .user-details p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .user-details-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-details-popup .user-details-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    width: 500px;
+    border-radius: 5px;
+    
+
+  }
+  .user-details-card img {
+    justify-content: center;
+    align-items: center;
+    border-radius: 15%;
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+  }
+  .support-details {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: column;
+    margin-bottom: 10px;
+  
+  }
+  .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  
+  }
+  .navigation-btn {
+    background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #0f1111;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 14px;
+    height: 29px;
+    font-size: 13px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+  }
+  .navigation-btn[disabled] {
+    opacity: 0.5; 
+    pointer-events: none; 
+  }
+
+  .navigation-btn:active {
+    border-bottom-color: #a2a6ac;
+  }
+
+  .navigation-btn:active:hover {
+    border-bottom-color: #a2a6ac;
+  }
+
+  .navigation-btn:hover {
+    border-color: #a2a6ac #979aa1 #82858a;
+  }
+
+  .navigation-btn:focus {
+    border-color: #e77600;
+    box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+    outline: 0;
+  }

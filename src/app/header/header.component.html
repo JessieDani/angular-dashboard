@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <div class="nav-container">
+            <div class="dashboard-name">Dashboard</div>
+        </div>
+        <div class="search-container" >
+            <input type="text" placeholder="Search by ID" [(ngModel)]="searchTerm" >
+            <button class="navigation-btn" (input)="onSearchClick()">Search</button>
+        </div>
+    </div>
+</div>

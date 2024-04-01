@@ -1,0 +1,98 @@
+.row {
+    display: flex;
+    justify-content: center;
+    background-color: #000000;
+    color: white;
+    font-size: 4vm;
+    text-align: center;
+    font-family: sans-serif;
+    padding: 10px 50px 20px;
+}
+.dashboard-name {
+    display: flex;
+    padding-right: 40%;
+    padding-left: 20%;
+}
+.nav-container {
+    display: flex;
+}   
+.search-container {
+    display: flex;
+    padding-left: 40%;
+}
+
+@media screen and (min-width: 128px) and (max-width: 900px) {
+    .row {
+        display: flex;
+        justify-content: center;
+        background-color: #000000;
+        color: white;
+        font-size: 4vm;
+        text-align: center;
+        font-family: sans-serif;
+        padding: 10px 30px 20px;
+    }
+    .dashboard-name {
+        display: flex;
+    }
+    .nav-container {
+        display: flex;
+    }   
+
+    .search-container {
+        display: flex;
+        padding-left: 40%;
+    }
+
+}
+
+.navigation-btn {
+    background-image: linear-gradient(#f7f8fa ,#e7e9ec);
+    border-color: #adb1b8 #a2a6ac #8d9096;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    box-shadow: rgba(255,255,255,.6) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #0f1111;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 14px;
+    height: 29px;
+    font-size: 13px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 11px;
+    text-align: center;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+  }
+  .navigation-btn[disabled] {
+    opacity: 0.5; 
+    pointer-events: none; 
+  }
+  
+  .navigation-btn:active {
+    border-bottom-color: #a2a6ac;
+  }
+  
+  .navigation-btn:active:hover {
+    border-bottom-color: #a2a6ac;
+  }
+  
+  .navigation-btn:hover {
+    border-color: #a2a6ac #979aa1 #82858a;
+  }
+  
+  .navigation-btn:focus {
+    border-color: #e77600;
+    box-shadow: rgba(228, 121, 17, .5) 0 0 3px 2px;
+    outline: 0;
+  }
+  
