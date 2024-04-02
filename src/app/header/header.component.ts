@@ -11,10 +11,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeaderComponent {
   searchTerm: string = ''; 
-  
+
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  onSubmit () {
+  onSubmit() {
     this.searchChanged.emit(this.searchTerm);
     console.log('searchTerm', this.searchTerm);
   }

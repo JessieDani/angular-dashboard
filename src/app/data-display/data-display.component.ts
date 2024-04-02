@@ -30,13 +30,14 @@ export class DataDisplayComponent implements OnInit {
     this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).subscribe((data: any) => {
       this.data = data.data;
       this.totalPages = data.total_pages;
+      this.filteredData = this.data;
     });
   }
   fetchSingleUserData(id: number) {
     this.httpClient.get(`https://reqres.in/api/users/${id}`).subscribe((userData: any) => {
       this.selectedUser = userData;
       this.showUserDetails = true;
-      this.filteredData = this.data;
+      
     });
     
   }
@@ -67,11 +68,15 @@ export class DataDisplayComponent implements OnInit {
     if (!this.searchTerm) {
       this.filteredData = this.data;
     } else {
-      this.filteredData = this.data.filter((data: any) => 
-        data.id.toString().includes(this.searchTerm) 
+      this.filteredData = this.data.filter((user: any) => 
+      user.id.toString().match(new RegExp(this.searchTerm, "i"))
       );
       console.log('2', this.filteredData);
     }
+  }
+  onSearchChange(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    this.filterData();
   }
   
   constructor() {
