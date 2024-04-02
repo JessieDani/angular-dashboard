@@ -3,9 +3,9 @@
         <div class="nav-container">
             <div class="dashboard-name">Dashboard</div>
         </div>
-        <div class="search-container">
-            <input type="text" placeholder="Search by ID" #searchTerm>
-            <button class="navigation-btn" (click)="onSearchClick(searchTerm.value)">Search</button>
-        </div>
+        <form class="search-container" (submit)="onSubmit()">
+            <input type="text" placeholder="Search by ID" [(ngModel)]="searchTerm" name="searchId" required/>
+            <button type="submit" class="navigation-btn" >Search</button>
+        </form>
     </div>
 </div>

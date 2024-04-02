@@ -10,12 +10,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  // searchTerm: string = ''; 
+  searchTerm: string = ''; 
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  onSearchClick(searchTerm: string): void {
-    this.searchChanged.emit(searchTerm);
-    console.log('searchTerm', searchTerm);
+  onSubmit () {
+    this.searchChanged.emit(this.searchTerm);
+    console.log('searchTerm', this.searchTerm);
   }
   
 }
