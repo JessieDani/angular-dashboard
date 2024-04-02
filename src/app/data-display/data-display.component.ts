@@ -34,6 +34,7 @@ export class DataDisplayComponent implements OnInit {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.fetchAllData();
+      this.currentPage = 1;
     }
   });
 }

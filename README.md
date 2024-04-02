@@ -14,6 +14,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 - Go Back Button: The goBack method hides the details of a single user.
 
+- Search bar: Filter by ID to get the information of the right id you are looking for.
+
 ## Pagination
 
 - Next Page: The nextPage method increments the current page number and fetches the corresponding page of data, if it exists.
