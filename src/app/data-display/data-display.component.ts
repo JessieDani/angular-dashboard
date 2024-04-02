@@ -28,7 +28,8 @@ export class DataDisplayComponent implements OnInit {
    this.fetchAllData();
  }
  
-
+  // Fetching all the data from the API and paginating it to display 6 users per page
+  
  fetchAllData() {
   this.fetchData().subscribe(() => {
     if (this.currentPage < this.totalPages) {
@@ -38,8 +39,6 @@ export class DataDisplayComponent implements OnInit {
     }
   });
 }
-
-
 fetchData(): Observable<any> {
   return this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).pipe(
     tap((data: any) => {
@@ -56,6 +55,28 @@ fetchData(): Observable<any> {
     });
     
   }
+
+  // Filtering the data based on the search term brought by the user through the input field from the header component
+  
+  filterData() {
+    if (!this.searchTerm) {
+      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
+    } else {
+      this.filteredData = this.data.filter((user: any) => 
+      user.id.toString().match(new RegExp(this.searchTerm, "i"))
+      );
+
+    }
+  }
+  updateFilteredData(): void {
+    this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
+  }
+  onSearchChange(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    this.filterData();
+  }
+  // Navigation for the user details page and the main page
+  
   goBack() {
     this.showUserDetails = false; 
   }
@@ -71,30 +92,5 @@ fetchData(): Observable<any> {
     }
     this.updateFilteredData();
   }
-  
-  updateFilteredData(): void {
-    this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
-  }
-  filterData() {
-    if (!this.searchTerm) {
-      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
-    } else {
-      this.filteredData = this.data.filter((user: any) => 
-      user.id.toString().match(new RegExp(this.searchTerm, "i"))
-      );
-
-    }
-  }
-  onSearchChange(searchTerm: string) {
-    this.searchTerm = searchTerm;
-    this.filterData();
-  }
-  
-  constructor() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
-
 
 }
