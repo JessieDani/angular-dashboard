@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 @Component({
   selector: 'app-data-display',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, HeaderComponent, SpinnerComponent],
   templateUrl: './data-display.component.html',
   styleUrl: './data-display.component.scss'
 })
@@ -15,25 +17,26 @@ export class DataDisplayComponent implements OnInit {
  showUserDetails: boolean = false;
  currentPage: number = 1;
  totalPages: number = 2;
- searchTerm: string = '';
  filteredData: any[] = [];
+ searchTerm: string = '';
+ isLoading = true;
 
  ngOnInit(): void {
    this.fetchData();
  }
+ 
 
  fetchData() {
     this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).subscribe((data: any) => {
       this.data = data.data;
       this.totalPages = data.total_pages;
-      this.filteredData = this.data;
     });
   }
   fetchSingleUserData(id: number) {
     this.httpClient.get(`https://reqres.in/api/users/${id}`).subscribe((userData: any) => {
       this.selectedUser = userData;
       this.showUserDetails = true;
-
+      this.filteredData = this.data;
     });
     
   }
@@ -60,22 +63,25 @@ export class DataDisplayComponent implements OnInit {
   isLastPage(): boolean {
     return this.currentPage === this.totalPages;
   }
-  search(searchTerm: string) {
-    this.searchTerm = searchTerm;
-    const userId = parseInt(searchTerm);
-    if (!isNaN(userId)) {
-      this.fetchSingleUserData(userId);
-    }
-  }
   filterData() {
     if (!this.searchTerm) {
       this.filteredData = this.data;
     } else {
-      this.filteredData = this.data.filter((user: any) => 
-         user.id.toString().includes(this.searchTerm) 
-        // || 
-        //  user.first_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      console.log('1', this.searchTerm);
+      this.filteredData = this.data.filter((data: any) => 
+        data.id.toString().includes(this.searchTerm) 
+        // user.id.toString().match(new RegExp(this.searchTerm, "i"))
+        
       );
+      console.log('2', this.filteredData);
     }
   }
+  
+  constructor() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
+
+
 }

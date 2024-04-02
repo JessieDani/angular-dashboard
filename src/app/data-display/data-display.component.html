@@ -1,7 +1,7 @@
-
+<app-header (searchChanged)="filterData()"></app-header>
 <div *ngIf="!showUserDetails">
     <ul>
-        <li *ngFor="let post of data">
+        <li *ngFor="let post of data ">
             <div class="user-card" (click)="fetchSingleUserData(post.id)">
                 <img [src]="post.avatar" alt="Avatar">
                 <div class="user-details">
@@ -17,18 +17,21 @@
       </div>
 </div>
 
-<div *ngIf="showUserDetails" class="user-details-popup">
-    <div class="user-details-card">
-        <img [src]="selectedUser.data.avatar" alt="Avatar">
-        <h2>{{ selectedUser.data.first_name }} {{ selectedUser.data.last_name }}</h2>
-        <p class="email-text">{{ selectedUser.data.email }}</p>
+<div *ngIf="isLoading; else userDetails">
+    <app-spinner></app-spinner>
+</div>
+
+<ng-template #userDetails>
+    <div *ngIf="showUserDetails" class="user-details-popup">
+        <div class="user-details-card">
+            <img [src]="selectedUser.data.avatar" alt="Avatar">
+            <h2>{{ selectedUser.data.first_name }} {{ selectedUser.data.last_name }}</h2>
+            <p class="email-text">{{ selectedUser.data.email }}</p>
         <div class="support-details">
-        <p > URL: {{ selectedUser.support.url }}</p>
-        <p > {{ selectedUser.support.text }}</p>
+            <p> URL: {{ selectedUser.support.url }}</p>
+            <p> {{ selectedUser.support.text }}</p>
         </div>
-
-        <button class="navigation-btn"(click)="goBack()">Go Back</button>
-</div>
-
-
-</div>
+            <button class="navigation-btn"(click)="goBack()">Go Back</button>
+        </div>
+    </div>
+</ng-template>
