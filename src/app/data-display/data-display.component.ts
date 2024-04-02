@@ -30,21 +30,21 @@ export class DataDisplayComponent implements OnInit {
  
   // Fetching all the data from the API and paginating it to display 6 users per page
   
- fetchAllData() {
-  this.fetchData().subscribe(() => {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.fetchAllData();
+  fetchAllData() {
+    this.fetchData().subscribe(() => {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchAllData();
+      }
       this.currentPage = 1;
-    }
-  });
-}
+    });
+  }
 fetchData(): Observable<any> {
   return this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).pipe(
     tap((data: any) => {
       this.data = [...this.data, ...data.data];
       this.totalPages = data.total_pages;
-      this.filteredData = Array.from(this.data).splice((this.currentPage - 1) * this.itemsPerPage, this.itemsPerPage);
+      this.filteredData = Array.from(this.data).slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
     })
   );
 }
@@ -60,12 +60,18 @@ fetchData(): Observable<any> {
   
   filterData() {
     if (!this.searchTerm) {
-      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
+      this.filteredData = Array.from(this.data).slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
     } else {
-      this.filteredData = this.data.filter((user: any) => 
-      user.id.toString().match(new RegExp(this.searchTerm, "i"))
+      let filtered = this.data.filter((user: any) => 
+        user.id.toString().match(new RegExp(this.searchTerm, "i"))
       );
-
+  
+      // Remove duplicates
+      this.filteredData = filtered.filter((item: any, index: number, self: any[]) =>
+        index === self.findIndex((t: any) => (
+          t.id === item.id
+        ))
+      );
     }
   }
   updateFilteredData(): void {
