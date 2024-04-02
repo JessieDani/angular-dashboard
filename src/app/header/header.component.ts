@@ -16,7 +16,6 @@ export class HeaderComponent {
 
   onSubmit() {
     this.searchChanged.emit(this.searchTerm);
-    console.log('searchTerm', this.searchTerm);
   }
   
 }
