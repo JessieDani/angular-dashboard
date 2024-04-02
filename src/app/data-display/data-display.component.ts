@@ -38,12 +38,13 @@ export class DataDisplayComponent implements OnInit {
   });
 }
 
+
 fetchData(): Observable<any> {
   return this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).pipe(
     tap((data: any) => {
       this.data = [...this.data, ...data.data];
       this.totalPages = data.total_pages;
-      this.filteredData = this.data.slice(this.currentPage * this.itemsPerPage, (this.currentPage + 1) * this.itemsPerPage);
+      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
     })
   );
 }
@@ -70,13 +71,12 @@ fetchData(): Observable<any> {
     this.updateFilteredData();
   }
   
-  // Method to update filteredData
   updateFilteredData(): void {
-    this.filteredData = this.data.slice(this.currentPage * this.itemsPerPage, (this.currentPage + 1) * this.itemsPerPage);
+    this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
   }
   filterData() {
     if (!this.searchTerm) {
-      this.filteredData = this.data;
+      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
     } else {
       this.filteredData = this.data.filter((user: any) => 
       user.id.toString().match(new RegExp(this.searchTerm, "i"))
