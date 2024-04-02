@@ -37,7 +37,6 @@ export class DataDisplayComponent implements OnInit {
     this.httpClient.get(`https://reqres.in/api/users/${id}`).subscribe((userData: any) => {
       this.selectedUser = userData;
       this.showUserDetails = true;
-      
     });
     
   }
@@ -71,7 +70,6 @@ export class DataDisplayComponent implements OnInit {
       this.filteredData = this.data.filter((user: any) => 
       user.id.toString().match(new RegExp(this.searchTerm, "i"))
       );
-      console.log('2', this.filteredData);
     }
   }
   onSearchChange(searchTerm: string) {

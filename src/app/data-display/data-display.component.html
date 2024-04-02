@@ -2,7 +2,7 @@
 @defer (on timer (2s)) {   
 <div *ngIf="!showUserDetails">
     <ul>
-        <li *ngFor="let post of data ">
+        <li *ngFor="let post of filteredData ">
             <div class="user-card" (click)="fetchSingleUserData(post.id)">
                 <img [src]="post.avatar" alt="Avatar">
                 <div class="user-details">

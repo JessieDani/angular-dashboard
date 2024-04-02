@@ -6,22 +6,30 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Fetch Data: The fetchData method retrieves a list of users from the API. The data is paginated, and the current page is determined by this.currentPage.
 
-## Build
+- Fetch Single User Data: The fetchSingleUserData method retrieves data for a single user, identified by their id.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Go Back Button: The goBack method hides the details of a single user.
 
-## Running unit tests
+## Pagination
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Next Page: The nextPage method increments the current page number and fetches the corresponding page of data, if it exists.
 
-## Running end-to-end tests
+- Previous Page: The previousPage method decrements the current page number and fetches the corresponding page of data, if it exists.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Usage
+This component is designed to be used within an Angular application. It should be included in the declarations array of the NgModule that you want to use it in.
 
-## Further help
+The component makes use of the HttpClient module to make HTTP requests, so make sure to import the HttpClientModule in your application module.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Dependencies
+Angular
+HttpClient module from @angular/common/http
+API
+The component fetches data from https://reqres.in/api/users. Make sure this API is accessible from your application.
+
+Note
+This is a basic component and does not handle errors from the API. You may want to extend it to handle such cases.
