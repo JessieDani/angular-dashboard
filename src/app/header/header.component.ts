@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeaderComponent {
   searchTerm: string = ''; 
+  
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
   onSubmit () {

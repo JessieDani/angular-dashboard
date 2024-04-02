@@ -11,7 +11,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   styleUrl: './data-display.component.scss'
 })
 export class DataDisplayComponent implements OnInit {
- httpClient = inject(HttpClient);
+ private httpClient = inject(HttpClient);
  data: any[]  = [];
  selectedUser: any;
  showUserDetails: boolean = false;
@@ -67,11 +67,8 @@ export class DataDisplayComponent implements OnInit {
     if (!this.searchTerm) {
       this.filteredData = this.data;
     } else {
-      console.log('1', this.searchTerm);
       this.filteredData = this.data.filter((data: any) => 
         data.id.toString().includes(this.searchTerm) 
-        // user.id.toString().match(new RegExp(this.searchTerm, "i"))
-        
       );
       console.log('2', this.filteredData);
     }
