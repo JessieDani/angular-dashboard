@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, EventEmitter, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { Observable, tap } from 'rxjs';
 @Component({
   selector: 'app-data-display',
   standalone: true,
@@ -15,24 +16,37 @@ export class DataDisplayComponent implements OnInit {
  data: any[]  = [];
  selectedUser: any;
  showUserDetails: boolean = false;
- currentPage: number = 1;
+ currentPage: number = 0;
  totalPages: number = 2;
  filteredData: any[] = [];
  searchTerm: string = '';
  isLoading = true;
+ itemsPerPage: number = 6;
+
 
  ngOnInit(): void {
-   this.fetchData();
+   this.fetchAllData();
  }
  
 
- fetchData() {
-    this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).subscribe((data: any) => {
-      this.data = data.data;
+ fetchAllData() {
+  this.fetchData().subscribe(() => {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchAllData();
+    }
+  });
+}
+
+fetchData(): Observable<any> {
+  return this.httpClient.get(`https://reqres.in/api/users?page=${this.currentPage}`).pipe(
+    tap((data: any) => {
+      this.data = [...this.data, ...data.data];
       this.totalPages = data.total_pages;
-      this.filteredData = this.data;
-    });
-  }
+      this.filteredData = this.data.slice(this.currentPage * this.itemsPerPage, (this.currentPage + 1) * this.itemsPerPage);
+    })
+  );
+}
   fetchSingleUserData(id: number) {
     this.httpClient.get(`https://reqres.in/api/users/${id}`).subscribe((userData: any) => {
       this.selectedUser = userData;
@@ -43,25 +57,22 @@ export class DataDisplayComponent implements OnInit {
   goBack() {
     this.showUserDetails = false; 
   }
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.fetchData();
-    }
-  }
 
-  previousPage() {
-    if (this.currentPage > 1) {
+  nextPage(): void {
+    this.currentPage++;
+    this.updateFilteredData();
+  }
+  
+  previousPage(): void {
+    if (this.currentPage > 0) {
       this.currentPage--;
-      this.fetchData();
     }
+    this.updateFilteredData();
   }
-  isFirstPage(): boolean {
-    return this.currentPage === 1;
-  }
-
-  isLastPage(): boolean {
-    return this.currentPage === this.totalPages;
+  
+  // Method to update filteredData
+  updateFilteredData(): void {
+    this.filteredData = this.data.slice(this.currentPage * this.itemsPerPage, (this.currentPage + 1) * this.itemsPerPage);
   }
   filterData() {
     if (!this.searchTerm) {
@@ -70,6 +81,7 @@ export class DataDisplayComponent implements OnInit {
       this.filteredData = this.data.filter((user: any) => 
       user.id.toString().match(new RegExp(this.searchTerm, "i"))
       );
+
     }
   }
   onSearchChange(searchTerm: string) {
