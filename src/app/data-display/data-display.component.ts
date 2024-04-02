@@ -44,9 +44,9 @@ fetchData(): Observable<any> {
     tap((data: any) => {
       this.data = [...this.data, ...data.data];
       this.totalPages = data.total_pages;
-      this.filteredData = Array.from(this.data).splice(this.currentPage * this.itemsPerPage, this.itemsPerPage);
-    })
-  );
+      this.filteredData = Array.from(this.data).splice((this.currentPage - 1) * this.itemsPerPage, this.itemsPerPage);
+    })
+  );
 }
   fetchSingleUserData(id: number) {
     this.httpClient.get(`https://reqres.in/api/users/${id}`).subscribe((userData: any) => {
