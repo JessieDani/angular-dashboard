@@ -33,5 +33,11 @@ HttpClient module from @angular/common/http
 API
 The component fetches data from https://reqres.in/api/users. Make sure this API is accessible from your application.
 
-Note
-This is a basic component and does not handle errors from the API. You may want to extend it to handle such cases.
+## Good Practices to suggest add
+
+- Use Endpoints: When searching for a user, it's recommended to use specific endpoints. This will make your requests more efficient and easier to manage. For example, instead of fetching all users and then filtering them on the client side, you can use an endpoint like `https://reqres.in/api/users?id={$id}` to directly fetch the user with the specified name.
+
+- Clear Search Term: To improve user experience, ensure that the search term is cleared whenever the search button is clicked. This way, users won't have to manually delete the previous search term before entering a new one.
+
+Note:
+This is a basic component and does not handle errors from the API. You may want to extend it to handle such cases, also units test aren't done since it was not stated.
